@@ -1,6 +1,7 @@
 import * as restify from "restify";
 import Config from "./Config";
 import Router from "./RouterConfig";
+import DatabaseConfig from "./DatabaseConfig";
 
 export default class Server implements Config {
 
@@ -13,6 +14,7 @@ export default class Server implements Config {
             version: "1.0.0"
         });
         this.configurations.push(new Router(this.app));
+        this.configurations.push(new DatabaseConfig());
     }
 
     init(): void {
