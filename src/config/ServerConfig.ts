@@ -24,10 +24,12 @@ export default class Server implements Config {
     }
 
     private applyPlugins(): void {
-        this.app.use(restify.plugins.queryParser());
+        this.app.use(restify.plugins.queryParser({ mapParams: true }));
+        this.app.use(restify.plugins.bodyParser({ mapParams: true }));
+        this.app.use(restify.plugins.acceptParser(this.app.acceptable));
     }
 
     private initConfigApp(): void {
-        this.configurations.forEach(config => config.init());
+        this.configurations.forEach(config => config.init()); 
     }
 }
