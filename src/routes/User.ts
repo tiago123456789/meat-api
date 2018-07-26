@@ -17,4 +17,11 @@ export default (app) => {
         await newUser.save();
         response.send(201);
     });
+
+    app.put("/users/:id", async (request, response, next) => {
+        const id = request.params.id;
+        const userModified = request.body;
+        await User.update({ _id: id }, { $set: userModified }).exec();
+        response.send(204);
+    });
 }
