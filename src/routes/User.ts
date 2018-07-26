@@ -13,9 +13,8 @@ export default (app) => {
     });
 
     app.post("/users", async (request, response, next) => {
-        const newUser = request.body;
-        console.log(newUser);
-        const userSaved = await User.create(newUser);
-        response.json(userSaved);
+        const newUser = new User(request.body);
+        await newUser.save();
+        response.send(201);
     });
 }

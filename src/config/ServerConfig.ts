@@ -18,15 +18,14 @@ export default class Server implements Config {
     }
 
     init(): void {
-        this.initConfigApp();
         this.applyPlugins();
+        this.initConfigApp();
         this.app.listen(3000, (error) => console.log("Server running http://localhost:3000."));
     }
 
     private applyPlugins(): void {
-        this.app.use(restify.plugins.queryParser({ mapParams: true }));
-        this.app.use(restify.plugins.bodyParser({ mapParams: true }));
-        this.app.use(restify.plugins.acceptParser(this.app.acceptable));
+        this.app.use(restify.plugins.queryParser());
+        this.app.use(restify.plugins.bodyParser());
     }
 
     private initConfigApp(): void {
