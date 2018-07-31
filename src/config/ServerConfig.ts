@@ -2,6 +2,7 @@ import * as restify from "restify";
 import Config from "./Config";
 import Router from "./RouterConfig";
 import DatabaseConfig from "./DatabaseConfig";
+import mergePathParse from "./../middleware/MergePatchParse";
 
 export default class Server implements Config {
 
@@ -26,6 +27,7 @@ export default class Server implements Config {
     private applyPlugins(): void {
         this.app.use(restify.plugins.queryParser());
         this.app.use(restify.plugins.bodyParser());
+        this.app.use(mergePathParse);
     }
 
     private initConfigApp(): void {

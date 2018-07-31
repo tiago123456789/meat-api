@@ -24,4 +24,11 @@ export default (app) => {
         await User.update({ _id: id }, { $set: userModified }).exec();
         response.send(204);
     });
+
+    app.patch("/users/:id", async (request, response, next) => {
+        const id = request.params.id;
+        const userModified = request.body;
+        await User.findByIdAndUpdate({ _id: id }, { $set: userModified });
+        response.send(204);
+    });
 }
