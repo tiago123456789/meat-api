@@ -3,6 +3,7 @@ import Config from "./Config";
 import Router from "./RouterConfig";
 import DatabaseConfig from "./DatabaseConfig";
 import mergePathParse from "./../middleware/MergePatchParse";
+import ErrorHandler from "./../middleware/ErrorHandler";
 
 export default class Server implements Config {
 
@@ -22,6 +23,11 @@ export default class Server implements Config {
         this.applyPlugins();
         this.initConfigApp();
         this.app.listen(3000, (error) => console.log("Server running http://localhost:3000."));
+        this.initEvents();
+    }
+
+    private initEvents() {
+        this.app.on("restifyError", ErrorHandler);
     }
 
     private applyPlugins(): void {
