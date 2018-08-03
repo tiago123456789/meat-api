@@ -1,4 +1,5 @@
 import * as mongoose from "mongoose";
+import { validateCPF } from "./../lib/CustomValidator";
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -27,6 +28,14 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, "Campo gender é obrigatório."],
         enum: ["Male", "Female"]
+    },
+    cpf: {
+        type: String,
+        required: true,
+        validate: {
+            validator: validateCPF,
+            message: "{PATH}: cpf com valor ({VALUE}) é inválido."
+        }
     }
 });
 
