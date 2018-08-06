@@ -43,7 +43,7 @@ export default class UserRoute extends Route {
             try {
                 const id = request.params.id;
                 const userModified = request.body;
-                await User.update({ _id: id }, { $set: userModified }).exec();
+                await User.update({ _id: id }, { $set: userModified }, { runValidators: true }).exec();
                 response.send(204);
             } catch (e) {
                 next(e);
@@ -54,7 +54,7 @@ export default class UserRoute extends Route {
             try {
                 const id = request.params.id;
                 const userModified = request.body;
-                await User.findByIdAndUpdate({ _id: id }, { $set: userModified });
+                await User.findByIdAndUpdate({ _id: id }, { $set: userModified }, { runValidators: true });
                 response.send(204);
             } catch (e) {
                 next(e);

@@ -1,6 +1,6 @@
 import * as mongoose from "mongoose";
 import { validateCPF } from "./../lib/CustomValidator";
-import Encriptador from "./../lib/Encriptador";
+import userMiddleware from "./middleware/UserMiddleware";
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -39,19 +39,6 @@ const userSchema = new mongoose.Schema({
     }
 });
 
-userSchema.pre("save", function(next) {
-    const user = this;
-    if (!user.isModified('password')) {
-        next();
-    } else {
-        Encriptador.getHash(user.password)
-               .then((hash) => {
-                   user.password = hash;
-                })
-               .then(() => next())
-               .catch(next);
-    }
-    
-});
+userMiddleware(userSchema);
 
 export const User = mongoose.model("user", userSchema);
