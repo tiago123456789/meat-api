@@ -1,5 +1,6 @@
 import * as mongoose from "mongoose";
 import { validateCPF } from "./../lib/CustomValidator";
+import Encriptador from "./../lib/Encriptador";
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -21,7 +22,6 @@ const userSchema = new mongoose.Schema({
         type: String,
         select: true,
         required: true,
-        maxlength: [11, "Campo name deve possui no máximo 11 caracteres."],
         minlength: [6, "Campo name deve possui no máximo 6 caracteres."]        
     },
     gender: {
@@ -37,6 +37,21 @@ const userSchema = new mongoose.Schema({
             message: "{PATH}: cpf com valor ({VALUE}) é inválido."
         }
     }
+});
+
+userSchema.pre("save", function(next) {
+    const user = this;
+    if (!user.isModified('password')) {
+        next();
+    } else {
+        Encriptador.getHash(user.password)
+               .then((hash) => {
+                   user.password = hash;
+                })
+               .then(() => next())
+               .catch(next);
+    }
+    
 });
 
 export const User = mongoose.model("user", userSchema);
