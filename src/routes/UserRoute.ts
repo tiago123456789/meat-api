@@ -1,6 +1,7 @@
 import * as restify from "restify";
 import { User } from "./../model/User";
 import Route from "./Route";
+import validationIdMongoose from "./../middleware/ValidationIdMongodb";
 
 export default class UserRoute extends Route {
 
@@ -19,15 +20,16 @@ export default class UserRoute extends Route {
                 .catch(next);
         });
 
-        this.app.get("/users/:id", async (request, response, next) => {
+        this.app.get("/users/:id", [validationIdMongoose, async (request, response, next) => {
             try {
+                console.log("Execute find by id user")
                 const id = request.params.id;
                 const user = await User.findById(id);
                 response.send(200, user);
             } catch (e) {
                 next(e);
             }
-        });
+        }]);
 
         this.app.post("/users", async (request, response, next) => {
             try {
@@ -61,7 +63,7 @@ export default class UserRoute extends Route {
             }
         });
 
-        this.app.del(`/${this.endpoint}/:id`, async (request, response, next) => {
+        this.app.del(`/${this.endpoint}/:id`, [validationIdMongoose, async (request, response, next) => {
             try {
                 const id = request.params.id;
                 await User.remove({ _id: id });
@@ -69,6 +71,6 @@ export default class UserRoute extends Route {
             } catch (e) {
                 next(e);
             }
-        })
+        }])
     }
 }

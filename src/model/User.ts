@@ -34,7 +34,7 @@ const userSchema = new mongoose.Schema({
         required: true,
         validate: {
             validator: validateCPF,
-            message: "{PATH}: cpf com valor ({VALUE}) é inválido."
+            message: "Cpf com valor ({VALUE}) é inválido."
         }
     }
 });
