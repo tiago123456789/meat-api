@@ -2,34 +2,22 @@ import * as restify from "restify";
 import { User } from "./../model/User";
 import Route from "./Route";
 import validationIdMongoose from "./../middleware/ValidationIdMongodb";
+import UserEndpoint from "../endpoint/UserEndpoint";
 
 export default class UserRoute extends Route {
 
     private app: restify.Server;
-    private endpoint = "users";
+    private endpoint: UserEndpoint;
 
     constructor(app) {
         super();
         this.app = app;
+        this.endpoint = new UserEndpoint();
     }
 
     public loading() {
-        this.app.get("/users", (request, response, next) => {
-            User.find({})
-                .then((users) => response.send(200, users))
-                .catch(next);
-        });
-
-        this.app.get("/users/:id", [validationIdMongoose, async (request, response, next) => {
-            try {
-                console.log("Execute find by id user")
-                const id = request.params.id;
-                const user = await User.findById(id);
-                response.send(200, user);
-            } catch (e) {
-                next(e);
-            }
-        }]);
+        this.app.get("/users", this.endpoint.findAll);
+        this.app.get("/users/:id", [validationIdMongoose, this.endpoint.findById]);
 
         this.app.post("/users", async (request, response, next) => {
             try {
