@@ -1,5 +1,7 @@
 import UserDAO from "../dao/UserDAO";
 import NotFoundException from "./../exception/NotFoundException";
+import BusinessException from "./../exception/BusinessException";
+
 
 export default class UserBO {
 
@@ -31,12 +33,23 @@ export default class UserBO {
         await this.dao.remove(id);
     }
 
-    public async update(id: Number, documentModified) {
+    public async update(id: Number, documentModified, options) {
         await this.findById(id);
-        await this.update(id, documentModified);
+        await this.dao.update(id, documentModified, options);
     }
 
     public async save(document) {
+        const emailAlreadyUsed = await this.verifyEmailUsed(document.email);
+        
+        if (emailAlreadyUsed) {
+            throw new BusinessException("Email already used.");
+        }
+
         await this.dao.save(document);
+    }
+
+    private async verifyEmailUsed(email: String) {
+        const peopleReturned = await this.dao.getPeopleByEmail(email);
+        return peopleReturned != null;
     }
 }

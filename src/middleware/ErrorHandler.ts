@@ -16,6 +16,9 @@ export default (request: restify.Request, response: restify.Response, error, don
                 error.message.push(error.errors[prop].message);
             }
             break;
+        case "BusinessException":
+            error.status = 409;
+            break;
     }
 
     error.toJSON = () => {

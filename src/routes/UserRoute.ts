@@ -18,47 +18,9 @@ export default class UserRoute extends Route {
     public loading() {
         this.app.get("/users", this.endpoint.findAll);
         this.app.get("/users/:id", [validationIdMongoose, this.endpoint.findById]);
-
-        this.app.post("/users", async (request, response, next) => {
-            try {
-                const newUser = new User(request.body);
-                await newUser.save();
-                response.send(201);
-            } catch (e) {
-                next(e);
-            }
-        });
-
-        this.app.put("/users/:id", async (request, response, next) => {
-            try {
-                const id = request.params.id;
-                const userModified = request.body;
-                await User.update({ _id: id }, { $set: userModified }, { runValidators: true }).exec();
-                response.send(204);
-            } catch (e) {
-                next(e);
-            }
-        });
-
-        this.app.patch("/users/:id", async (request, response, next) => {
-            try {
-                const id = request.params.id;
-                const userModified = request.body;
-                await User.findByIdAndUpdate({ _id: id }, { $set: userModified }, { runValidators: true });
-                response.send(204);
-            } catch (e) {
-                next(e);
-            }
-        });
-
-        this.app.del(`/${this.endpoint}/:id`, [validationIdMongoose, async (request, response, next) => {
-            try {
-                const id = request.params.id;
-                await User.remove({ _id: id });
-                response.send(204);
-            } catch (e) {
-                next(e);
-            }
-        }])
+        this.app.post("/users", this.endpoint.save);
+        this.app.put("/users/:id", this.endpoint.update);
+        this.app.patch("/users/:id", [validationIdMongoose, this.endpoint.updatePartial]);
+        this.app.del(`/users/:id`, [validationIdMongoose, this.endpoint.delete])
     }
 }

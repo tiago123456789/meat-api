@@ -9,8 +9,8 @@ export default abstract class DAO {
         return await this.getEntidade().findById(id, options);
     }
 
-    public async update(id: Number, document: any) {
-        await this.getEntidade().update({ _id : id }, { $set: document });
+    public async update(id: Number, document: any, options: any) {
+        await this.getEntidade().update({ _id : id }, { $set: document }, options);
     }
 
     public async remove(id: Number) {
