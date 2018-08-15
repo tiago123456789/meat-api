@@ -7,7 +7,7 @@ export default class RestaurantDAO extends DAO {
         return restaurant;
     }
 
-    public async getPeopleByEmail(email) {
-        return await this.getEntidade().findOne({ email });
+    public async getRestaurantByName(name) {
+        return await this.getEntidade().findOne({ name });
     }
 }

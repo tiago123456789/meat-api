@@ -1,7 +1,8 @@
 import * as restify from "restify";
 import Config from "./Config";
 import UserRoute from "../routes/UserRoute";
-import Route from "../routes/Route"; 
+import RestaurantRoute from "../routes/RestaurantRoute";
+import Route from "../routes/Route";
 
 export default class RouterConfig implements Config {
 
@@ -11,7 +12,8 @@ export default class RouterConfig implements Config {
     constructor(app) {
         this.app = app;
         this.routes = [
-            new UserRoute(this.app)
+            new UserRoute(this.app),
+            new RestaurantRoute(this.app)
         ];
     }
 
