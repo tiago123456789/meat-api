@@ -35,6 +35,16 @@ export default class RestaurantBO {
         await this.dao.save(newRestaurant);
     }
 
+    public async delete(id) {
+        await this.findById(id);
+        await this.dao.remove(id);
+    }
+
+    public async update(id, contentModified) {
+        await this.findById(this);
+        await this.dao.update(id, contentModified, { runValidations: true });
+    }
+
     private async verifyIfNameAlreadyUsing(name) {
         const restaurant = await this.dao.getRestaurantByName(name);
         return restaurant != null;

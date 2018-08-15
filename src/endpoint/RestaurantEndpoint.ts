@@ -9,6 +9,8 @@ export default class RestaurantEndpoint {
         this.findAll = this.findAll.bind(this);
         this.findById = this.findById.bind(this);
         this.save = this.save.bind(this);
+        this.update = this.update.bind(this);
+        this.delete = this.delete.bind(this);
     }
 
     public async findAll(request, response, next) {
@@ -35,6 +37,27 @@ export default class RestaurantEndpoint {
             const newRestaurant = request.body;
             await this.bo.save(newRestaurant);
             response.send(201);
+        } catch(e) {
+            next(e);
+        }
+    }
+
+    public async delete(request, response, next) {
+        try {
+            const id = request.params.id;
+            await this.bo.delete(id);
+            response.send(204);
+        } catch(e) {
+            next(e);
+        }
+    }
+
+    public async update(request, response, next) {
+        try {
+            const id = request.params.id;
+            const restaurantModified = request.body;
+            await this.bo.update(id, restaurantModified);
+            response.send(204);
         } catch(e) {
             next(e);
         }

@@ -17,5 +17,7 @@ export default class RestaurantRoute extends Route {
         this.app.get("/restaurants", this.endpoint.findAll);
         this.app.get("/restaurants/:id", this.endpoint.findById);
         this.app.post("/restaurants", this.endpoint.save);
+        this.app.put("/restaurants/:id", this.endpoint.update);
+        this.app.del("/restaurants/:id", this.endpoint.delete);        
     }
 }
