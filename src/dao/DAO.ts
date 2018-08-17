@@ -10,7 +10,7 @@ export default abstract class DAO {
     }
 
     public async update(id: Number, document: any, options: any) {
-        await this.getEntidade().update({ _id : id }, { $set: document }, options);
+        await this.getEntidade().findOneAndUpdate({ _id : id }, { $set: document }, options);
     }
 
     public async remove(id: Number) {

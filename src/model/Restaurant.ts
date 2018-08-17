@@ -9,7 +9,7 @@ const restaurantSchema = new mongoose.Schema({
     menu: {
         type: [MenuSchema],
         select: false,
-        default: []
+        default: [],
     }
 });
 

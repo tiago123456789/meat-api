@@ -1,6 +1,7 @@
 import * as restify from "restify";
 import Route from "./Route";
 import RestaurantEndpoint from "../endpoint/RestaurantEndpoint";
+import validationIdMongodb from "./../middleware/ValidationIdMongodb";
 
 export default class RestaurantRoute extends Route {
 
@@ -15,9 +16,9 @@ export default class RestaurantRoute extends Route {
 
     public loading() {
         this.app.get("/restaurants", this.endpoint.findAll);
-        this.app.get("/restaurants/:id", this.endpoint.findById);
+        this.app.get("/restaurants/:id", [validationIdMongodb, this.endpoint.findById]);
         this.app.post("/restaurants", this.endpoint.save);
-        this.app.put("/restaurants/:id", this.endpoint.update);
-        this.app.del("/restaurants/:id", this.endpoint.delete);        
+        this.app.put("/restaurants/:id", [validationIdMongodb, this.endpoint.update]);
+        this.app.del("/restaurants/:id", [validationIdMongodb, this.endpoint.delete]);        
     }
 }

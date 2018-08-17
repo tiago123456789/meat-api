@@ -5,11 +5,7 @@ import BusinessException from "../exception/BusinessException";
 
 export default class RestaurantBO {
 
-    private dao: RestaurantDAO;
-
-    constructor() {
-        this.dao = new RestaurantDAO();
-    }
+    private dao: RestaurantDAO = new RestaurantDAO();
 
     public async findAll() {
         return await this.dao.findAll();
