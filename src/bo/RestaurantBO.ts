@@ -5,7 +5,11 @@ import BusinessException from "../exception/BusinessException";
 
 export default class RestaurantBO {
 
-    private dao: RestaurantDAO = new RestaurantDAO();
+    private dao: RestaurantDAO;
+
+    constructor() {
+        this.dao = new RestaurantDAO();
+    }
 
     public async findAll() {
         return await this.dao.findAll();
@@ -37,7 +41,7 @@ export default class RestaurantBO {
     }
 
     public async update(id, contentModified) {
-        await this.findById(this);
+        await this.findById(id);
         await this.dao.update(id, contentModified, { runValidations: true });
     }
 

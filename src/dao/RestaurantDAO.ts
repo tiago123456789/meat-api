@@ -1,5 +1,5 @@
 import DAO from "./DAO";
-import { restaurant } from "../model/Restaurant";
+import restaurant from "../model/Restaurant";
 
 export default class RestaurantDAO extends DAO {
 

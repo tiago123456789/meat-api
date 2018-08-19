@@ -1,3 +1,4 @@
+import * as mongoose from "mongoose";
 
 export default abstract class DAO {
 
@@ -10,7 +11,7 @@ export default abstract class DAO {
     }
 
     public async update(id: Number, document: any, options: any) {
-        await this.getEntidade().findOneAndUpdate({ _id : id }, { $set: document }, options);
+        await this.getEntidade().findByIdAndUpdate(id, { $set: document }, options);
     }
 
     public async remove(id: Number) {
