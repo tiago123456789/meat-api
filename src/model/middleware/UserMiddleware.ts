@@ -28,6 +28,6 @@ export default (schema) => {
         }
     };
 
-    schema.pre("findOneAndUpdate", updateMiddleware);
+    schema.pre("findByIdAndUpdate", updateMiddleware);
     schema.pre("update", updateMiddleware);
 }
