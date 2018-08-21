@@ -10,11 +10,13 @@ const reviewSchema = new mongoose.Schema({
     comment: String,
     restaurant: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "restaurant"
+        ref: "restaurant",
+        required: [true, "Campo {PATH} é obrigatório."]
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "user"
+        ref: "user",
+        required: [true, "Campo {PATH} é obrigatório!"]
     }
 });
 
