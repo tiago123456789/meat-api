@@ -1,5 +1,6 @@
-import UserBO from "./../bo/UserBO";
 import * as restify from "restify";
+import UserBO from "./../bo/UserBO";
+import { AplicadorDeHateos } from "./../lib/AplicadorDeHateos";
 
 export default class UserEndpoint {
 
@@ -18,7 +19,7 @@ export default class UserEndpoint {
     public async findAll(request: restify.Request, response: restify.Response, next) {
         try {
             const users = await this._bo.findAll();
-            response.send(users);
+            response.send(AplicadorDeHateos.aplicar(users, "users"));
         } catch(e) {
             next(e);
         }
