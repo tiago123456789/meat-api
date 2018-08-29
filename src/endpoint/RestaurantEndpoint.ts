@@ -1,4 +1,5 @@
 import RestaurantBO from "../bo/RestaurantBO";
+import { AplicadorDeHateos } from "../lib/AplicadorDeHateos";
 
 export default class RestaurantEndpoint {
 
@@ -16,7 +17,7 @@ export default class RestaurantEndpoint {
     public async findAll(request, response, next) {
         try {
             const restaurants = await this.bo.findAll();
-            response.send(200, restaurants);
+            response.send(200, AplicadorDeHateos.aplicar(restaurants, "restaurants"));
         } catch(e) {
             next(e);
         }
@@ -26,7 +27,7 @@ export default class RestaurantEndpoint {
         try {
             const id = request.params.id;
             const restaurant = await this.bo.findById(id);
-            response.send(200, restaurant);
+            response.send(200, AplicadorDeHateos.aplicar(restaurant, "restaurants"));
         } catch(e) {
             next(e);
         }

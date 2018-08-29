@@ -2,8 +2,11 @@ import * as mongoose from "mongoose";
 
 export default abstract class DAO {
 
-    public async findAll(options = {}) {
-        return await this.getEntidade().find({}, options);
+    public async findAll(pagination, options = {}) {
+        return await this.getEntidade()
+                            .find({}, options)
+                            .limit(pagination.limit)
+                            .skip(pagination.skip);
     }
 
     public async findById(id: Number, options = {}) {

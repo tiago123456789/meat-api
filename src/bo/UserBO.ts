@@ -14,8 +14,8 @@ export default class UserBO {
         this.dao = new UserDAO();
     }
 
-    public async findAll() {
-        return await this.dao.findAll(this.options);
+    public async findAll(pagination: any) {
+        return await this.dao.findAll(pagination, this.options);
     }
 
     public async findById(id: Number) {

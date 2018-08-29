@@ -18,8 +18,11 @@ export default class UserEndpoint {
 
     public async findAll(request: restify.Request, response: restify.Response, next) {
         try {
-            const users = await this._bo.findAll();
-            response.send(AplicadorDeHateos.aplicar(users, "users"));
+            const pagination = request["pagination"];
+            const users = await this._bo.findAll(pagination);
+            response.send({ users, paginacao: {
+              quantidadeItensExibir: pagination.limit, paginaAtual: pagination.skip } 
+            });
         } catch(e) {
             next(e);
         }
@@ -29,7 +32,7 @@ export default class UserEndpoint {
         try {
             const id = request.params.id;
             const user = await this._bo.findById(id);
-            response.send(user);
+            response.send(AplicadorDeHateos.aplicar(user, "users"));
         } catch(e) {
             next(e);
         }

@@ -1,4 +1,5 @@
 import ReviewBO from "../bo/ReviewBO";
+import { AplicadorDeHateos } from "../lib/AplicadorDeHateos" 
 
 export default class ReviewEndpoint {
 
@@ -14,7 +15,7 @@ export default class ReviewEndpoint {
     public async findAll(request, response, next) {
         try {
             const reviews = await this.bo.findAll();
-            response.send(200, reviews);
+            response.send(200, AplicadorDeHateos.aplicar(reviews, "revi"));
         } catch(e) {
             next(e);
         }

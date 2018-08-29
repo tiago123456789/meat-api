@@ -2,6 +2,7 @@ import * as restify from "restify";
 import { User } from "./../model/User";
 import Route from "./Route";
 import validationIdMongoose from "./../middleware/ValidationIdMongodb";
+import { pagination } from "./../middleware/Pagination";
 import UserEndpoint from "../endpoint/UserEndpoint";
 
 export default class UserRoute extends Route {
@@ -16,7 +17,7 @@ export default class UserRoute extends Route {
     }
 
     public loading() {
-        this.app.get("/users", this.endpoint.findAll);
+        this.app.get("/users", pagination, this.endpoint.findAll);
         this.app.get("/users/:id", [validationIdMongoose, this.endpoint.findById]);
         this.app.post("/users", this.endpoint.save);
         this.app.put("/users/:id", this.endpoint.update);
