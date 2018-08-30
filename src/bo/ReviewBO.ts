@@ -9,8 +9,8 @@ export default class ReviewBO {
         this.dao = new ReviewDAO();
     }
 
-    public async findAll() {
-        return await this.dao.findAll();
+    public async findAll(pagination) {
+        return await this.dao.findAll({}, pagination);
     }
 
     public async findById(id) {

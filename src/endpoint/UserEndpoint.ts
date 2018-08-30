@@ -1,6 +1,5 @@
 import * as restify from "restify";
 import UserBO from "./../bo/UserBO";
-import { AplicadorDeHateos } from "./../lib/AplicadorDeHateos";
 
 export default class UserEndpoint {
 
@@ -32,7 +31,7 @@ export default class UserEndpoint {
         try {
             const id = request.params.id;
             const user = await this._bo.findById(id);
-            response.send(AplicadorDeHateos.aplicar(user, "users"));
+            response.send(user);
         } catch(e) {
             next(e);
         }

@@ -11,8 +11,8 @@ export default class RestaurantBO {
         this.dao = new RestaurantDAO();
     }
 
-    public async findAll() {
-        return await this.dao.findAll();
+    public async findAll(pagination) {
+        return await this.dao.findAll(pagination);
     }
 
     public async findById(id) {

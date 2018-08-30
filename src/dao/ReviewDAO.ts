@@ -8,9 +8,11 @@ export default class ReviewDAO extends DAO {
         return review;
     }
 
-    public async findAll(options = {}) {
+    public async findAll(options = {}, pagination) {
         return await this.getEntidade()
                         .find({}, options)
+                        .limit(pagination.limit)
+                        .skip(pagination.skip)
                         .populate("restaurant", "name")
                         .populate("user", "name");
     } 
