@@ -36,6 +36,9 @@ const userSchema = new mongoose.Schema({
             validator: validateCPF,
             message: "Cpf com valor ({VALUE}) é inválido."
         }
+    },
+    profiles: {
+        type: [String]
     }
 });
 
