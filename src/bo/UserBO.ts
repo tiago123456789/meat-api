@@ -48,6 +48,10 @@ export default class UserBO {
         await this.dao.save(document);
     }
 
+    public async findByEmail(email: string) {
+        return await this.dao.getPeopleByEmail(email);
+    }
+
     private async verifyEmailUsed(email: String) {
         const peopleReturned = await this.dao.getPeopleByEmail(email);
         return peopleReturned != null;

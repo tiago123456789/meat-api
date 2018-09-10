@@ -8,6 +8,6 @@ export default class UserDAO extends DAO {
     }
 
     public async getPeopleByEmail(email) {
-        return await this.getEntidade().findOne({ email });
+        return await this.getEntidade().findOne({ email }, { name: 1, email: 1, password: 1 });
     }
 }
