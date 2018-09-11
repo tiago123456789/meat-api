@@ -42,13 +42,13 @@ class AuthService {
         const people = await this.userBO.findByEmail(email);
 
         if (!people) {
-            throw new NotFoundException(MESSAGE_ERRO)
+            throw new SecurityException(MESSAGE_ERRO, 401);
         }
 
         const isValidPassword = await Encriptador.compareHashWithText(people.password, password);
 
         if (!isValidPassword) {
-            throw new NotFoundException(MESSAGE_ERRO);
+            throw new SecurityException(MESSAGE_ERRO, 401);
         }
 
         const accessToken = await this.getAccessToken(people);
