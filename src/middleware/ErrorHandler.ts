@@ -2,7 +2,7 @@ import * as restify from "restify";
 
 export default (request: restify.Request, response: restify.Response, error, done) => {
 
-   
+   console.log(error);
     switch(error.name) {
         case "MongoError":
             if (error.code === "11000") {

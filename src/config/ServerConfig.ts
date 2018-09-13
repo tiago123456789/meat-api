@@ -4,6 +4,7 @@ import Router from "./RouterConfig";
 import DatabaseConfig from "./DatabaseConfig";
 import mergePathParse from "./../middleware/MergePatchParse";
 import ErrorHandler from "./../middleware/ErrorHandler";
+import LoaderEnvironmentConfig from "./LoaderEnvironmentConfig";
 
 export default class Server implements Config {
 
@@ -17,6 +18,7 @@ export default class Server implements Config {
         });
         this.configurations.push(new Router(this.app));
         this.configurations.push(new DatabaseConfig());
+        this.configurations.push(new LoaderEnvironmentConfig());        
     }
 
     init(): void {

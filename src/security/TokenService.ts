@@ -28,7 +28,7 @@ export default class TokenService {
 
     public getAccessTokenWithoutPrefix(request: restify.Request): string {
         let token = request.header(CONSTANTES.PARAM_AUTH);
-        token = token.replace(CONSTANTES.PARAM_PREFIX_TOKEN, "");
+        token = (token || "").replace(CONSTANTES.PARAM_PREFIX_TOKEN, "");
         return token;
     }
 }

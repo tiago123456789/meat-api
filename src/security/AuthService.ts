@@ -23,6 +23,9 @@ export default class AuthService {
         return (request, response, next) => {
             try {
                 const token = this.tokenService.getAccessTokenWithoutPrefix(request);
+                if (token.trim().length == 0) {
+                    throw new SecurityException("Not information token authenticate.");
+                }
                 this.tokenService.isValid(token);
                 const conteudoToken = this.tokenService.getPayload(token);
                 const hasPermission = conteudoToken.permissions.includes(permissionAccess);

@@ -22,7 +22,7 @@ export default class Token {
     }
 
     public getSecret() {
-        return Buffer.from(this.secret).toString(this.encodingSecret);
+        return Buffer.from(process.env.TOKEN_SECRET || this.secret).toString(this.encodingSecret);
     }
 
     public getTimeExpiredInSeconds() {

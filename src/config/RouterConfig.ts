@@ -4,6 +4,7 @@ import UserRoute from "../routes/UserRoute";
 import RestaurantRoute from "../routes/RestaurantRoute";
 import Route from "../routes/Route";
 import ReviewRoute from "../routes/ReviewRoute";
+import AuthRoute from "../routes/AuthRoute";
 
 export default class RouterConfig implements Config {
 
@@ -15,7 +16,8 @@ export default class RouterConfig implements Config {
         this.routes = [
             new UserRoute(this.app),
             new RestaurantRoute(this.app),
-            new ReviewRoute(this.app)
+            new ReviewRoute(this.app),
+            new AuthRoute(this.app)
         ];
     }
 

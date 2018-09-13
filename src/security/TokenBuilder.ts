@@ -6,9 +6,11 @@ export default class TokenBuilder {
     public static builder(token: Token) {
         return new Promise((resolve, reject) => {
             jwt.sign(
-                token.getPayLoad(),
+                { 
+                    ...token.getPayLoad(), 
+                    exp: parseInt(token.getTimeExpiredInSeconds())
+                },
                 token.getSecret(),
-                { expiresIn: token.getTimeExpiredInSeconds()},
                 (err, token) => {
                     if (err) {
                         reject(err);

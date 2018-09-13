@@ -27,6 +27,7 @@
     "@types/jsonwebtoken": "^7.2.8",
     "@types/restify": "5.0.6",
     "bcrypt": "^3.0.0",
+    "dotenv": "^6.0.0",
     "jsonwebtoken": "8.3.0",
     "mongoose": "4.13.9",
     "restify": "6.3.4"
