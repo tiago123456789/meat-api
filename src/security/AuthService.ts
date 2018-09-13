@@ -9,7 +9,7 @@ import { CONSTANTES } from "../config/Constantes";
 import TokenService from "./TokenService";
 import SecurityException from "../exception/SecurityException";
 
-class AuthService {
+export default class AuthService {
 
     private userBO: UserBO
     private tokenService: TokenService;
@@ -27,7 +27,7 @@ class AuthService {
                 const conteudoToken = this.tokenService.getPayload(token);
                 const hasPermission = conteudoToken.permissions.includes(permissionAccess);
                 if (!hasPermission) {
-                    throw new SecurityException("You don't authorization access to the resource.");
+                    next(new SecurityException("You don't authorization access to the resource."));
                 }
                 next();
             } catch(e) {
