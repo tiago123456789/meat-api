@@ -4,7 +4,8 @@
   "description": "Api meat",
   "main": "index.js",
   "scripts": {
-    "compile": "tsc -w",
+    "compile": "tsc ",
+    "start": "pm2 start ./ecosystem.config.js",
     "start:dev": "NODE_ENV=dev node_modules/.bin/nodemon ./build/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

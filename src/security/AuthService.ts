@@ -61,7 +61,7 @@ export default class AuthService {
     }
 
     private async getAccessToken(data): string {
-        Token token = new Token();
+        const token  = new Token();
         token
             .adicionar("email", data.email)
             .adicionar("permissions", data.profiles);
